@@ -23,15 +23,7 @@ test: testSuites.inc matmult.o $(OBJS)
 
 clean:
 	find . -name "*genmod*" -type f -delete
-	rm main main2 test test_with_dot
+	rm main
 
 main:
-	$(F90) matmult.F90 main.f90 -o $@ $(FFLAGS) -O2
-
-#main2:
-#	$(F90) -D"mod=mmmm" matmult.F90 main.f90 -o $@ $(FFLAGS) -O2
-#adder:
-#	gcc define-adder.cpp -o define-header
-#
-#default:
-#	$(F90) -std08 -D -fpp multWithDot.f90 main.f90 -o main
+	$(F90) matmult.F90 main.f90 -o $@ $(FFLAGS)
