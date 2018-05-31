@@ -1,1 +1,0 @@
-ADD_TEST_SUITE(matmultTest_suite)
