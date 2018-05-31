@@ -1,0 +1,174 @@
+#DEFINE N 100
+#DEFINE test_mod matmult
+
+@test
+subroutine OneElMatrixesTest()
+    use pfunit_mod
+    use test_mod
+
+    real(kind = 8) :: first(1,1)  ! columns, rows
+    real(kind = 8) :: second(1,1) ! columns, rows
+    real(kind = 8), allocatable :: result(:,:)
+    integer :: first_shape(2)
+    integer :: sec_shape(2)
+    integer :: status ! kod błędu, 0 gdy OK
+
+    first_shape = shape(first)
+    sec_shape = shape(second)
+
+    first = 1
+    second = 2
+
+
+    allocate(result(sec_shape(1),first_shape(2)))
+    call mm(first, second, result, status)
+
+    @assertEqual(2, result(1,1))
+    !@assertEqual(0, status)
+end
+
+@test
+subroutine OneToNsizeTest()
+    use pfunit_mod
+    use test_mod
+
+    real(kind = 8) :: first(N,1)  ! columns, rows
+    real(kind = 8) :: second(1,N) ! columns, rows
+    real(kind = 8), allocatable :: result(:,:), answer(:,:)
+    integer :: first_shape(2)
+    integer :: sec_shape(2)
+    integer :: status ! kod błędu, 0 gdy OK
+
+    first_shape = shape(first)
+    sec_shape = shape(second)
+
+    first = 1
+    second = 1
+
+
+    allocate(result(sec_shape(1),first_shape(2)))
+    allocate(answer(sec_shape(1),first_shape(2)))
+
+    answer = N
+
+    call mm(first, second, result, status)
+
+    @assertEqual(answer, result)
+    !@assertEqual(0, status)
+end
+
+@test
+subroutine NToOneSizeTest()
+    use pfunit_mod
+    use test_mod
+
+    real(kind = 8) :: first(1,N)  ! columns, rows
+    real(kind = 8) :: second(N,1) ! columns, rows
+    real(kind = 8), allocatable :: result(:,:), answer(:,:)
+    integer :: first_shape(2)
+    integer :: sec_shape(2)
+    integer :: status ! kod błędu, 0 gdy OK
+
+    first_shape = shape(first)
+    sec_shape = shape(second)
+
+    first = 1
+    second = 1
+
+
+    allocate(result(sec_shape(1),first_shape(2)))
+    allocate(answer(sec_shape(1),first_shape(2)))
+
+    answer = 1
+
+    call mm(first, second, result, status)
+
+    @assertEqual(answer, result)
+end
+
+@test
+subroutine NsizeTest()
+    use pfunit_mod
+    use test_mod
+
+    real(kind = 8) :: first(N,N)  ! columns, rows
+    real(kind = 8) :: second(N,N) ! columns, rows
+    real(kind = 8), allocatable :: result(:,:), answer(:,:)
+    integer :: first_shape(2)
+    integer :: sec_shape(2)
+    integer :: status ! kod błędu, 0 gdy OK
+
+    first_shape = shape(first)
+    sec_shape = shape(second)
+
+    first = 1
+    second = 1
+
+
+    allocate(result(sec_shape(1),first_shape(2)))
+    allocate(answer(sec_shape(1),first_shape(2)))
+
+    answer = N
+
+    call mm(first, second, result, status)
+
+    @assertEqual(answer, result)
+    !@assertEqual(0, status)
+end
+
+@test
+subroutine SmallRealLifeTest()
+    use pfunit_mod
+    use test_mod
+
+    real(kind = 8) :: first(3,5)  ! columns, rows
+    real(kind = 8) :: second(10,3) ! columns, rows
+    real(kind = 8), allocatable :: result(:,:), answer(:,:)
+    integer :: first_shape(2)
+    integer :: sec_shape(2)
+    integer :: status ! kod błędu, 0 gdy OK
+
+    first_shape = shape(first)
+    sec_shape = shape(second)
+
+    first = 1
+    second = 1
+
+
+    allocate(result(sec_shape(1),first_shape(2)))
+    allocate(answer(sec_shape(1),first_shape(2)))
+
+    answer = 3
+
+    call mm(first, second, result, status)
+
+    @assertEqual(answer, result)
+    !./@assertEqual(0, status)
+end
+
+
+@test
+subroutine RandomWrongSizeTest()
+    use pfunit_mod
+    use test_mod
+
+    real(kind = 8) :: first(123,456)  ! columns, rows
+    real(kind = 8) :: second(132,465) ! columns, rows
+    real(kind = 8), allocatable :: result(:,:), answer(:,:)
+    integer :: first_shape(2)
+    integer :: sec_shape(2)
+    integer :: status ! kod błędu, 0 gdy OK
+
+    first_shape = shape(first)
+    sec_shape = shape(second)
+
+    first = 1
+    second = 1
+
+
+    allocate(result(sec_shape(1),first_shape(2)))
+
+    call mm(first, second, result, status)
+
+    @assertEqual(1, status)
+end

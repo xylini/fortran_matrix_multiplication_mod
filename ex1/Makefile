@@ -26,4 +26,4 @@ clean:
 	rm main
 
 main:
-	$(F90) matmult.F90 main.f90 -o $@ $(FFLAGS)
+	$(F90) matmult.F90 main.f90 -o $@ $(FFLAGS) 
