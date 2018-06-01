@@ -14,7 +14,7 @@ OBJS = $(PFS:.pf=.o)
 	$(PFUNIT)/bin/pFUnitParser.py $< $@
 
 matmult00.o: matmult.F90
-	$(F90) -DDOT=0 -DCACHE=0 $(FFLAGS) -c $<
+	@$(F90) -DDOT=0 -DCACHE=0 $(FFLAGS) -c $<
 
 
 test00: testSuites.inc matmult00.o $(OBJS) #clean
@@ -23,7 +23,7 @@ test00: testSuites.inc matmult00.o $(OBJS) #clean
 		./*$(OBJ_EXT) $(LIBS) $(FFLAGS)
 
 matmult01.o: matmult.F90
-	$(F90) -DDOT=0 -DCACHE=1 $(FFLAGS) -c $<
+	@$(F90) -DDOT=0 -DCACHE=1 $(FFLAGS) -c $<
 
 
 test01: testSuites.inc matmult01.o $(OBJS) #clean
@@ -33,7 +33,7 @@ test01: testSuites.inc matmult01.o $(OBJS) #clean
 
 
 matmult10.o: matmult.F90
-	$(F90) -DDOT=1 -DCACHE=0 $(FFLAGS) -c $<
+	@$(F90) -DDOT=1 -DCACHE=0 $(FFLAGS) -c $<
 
 test10: testSuites.inc matmult10.o $(OBJS) #clean
 	$(F90) -o $@ -I$(PFUNIT)/mod -I$(PFUNIT)/include \
@@ -42,7 +42,7 @@ test10: testSuites.inc matmult10.o $(OBJS) #clean
 
 
 matmult11.o: matmult.F90
-	$(F90) -DDOT=1 -DCACHE=1 $(FFLAGS) -c $<
+	@$(F90) -DDOT=1 -DCACHE=1 $(FFLAGS) -c $<
 
 test11: testSuites.inc matmult11.o $(OBJS) #clean
 	$(F90) -o $@ -I$(PFUNIT)/mod -I$(PFUNIT)/include \
@@ -58,6 +58,9 @@ tests:
 	make clean
 	make test11
 	make clean
+
+
+run_tests:
 	./test00
 	./test01
 	./test10
