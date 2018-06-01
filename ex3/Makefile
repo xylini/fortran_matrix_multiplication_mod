@@ -69,6 +69,7 @@ run_tests:
 
 clean:
 	find . -name "*genmod*" -type f -delete
+	find . -name 'main*' ! -name '*.*' -type f -delete
 
 main00:
 	$(F90) -O2 -DDOT=0 -DCACHE=0 -std08 matmult.F90 main.f90 -o $@ #$(FFLAGS)
@@ -83,4 +84,4 @@ main11:
 	$(F90) -O2 -DDOT=1 -DCACHE=1 -std08 matmult.F90 main.f90 -o $@
 
 mainmatmul:
-	$(F90) -O2 -std08 mainmatmul.f90 -o $@
+	$(F90) -O2 -std08 -heap-arrays mainmatmul.f90 -o $@

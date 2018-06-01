@@ -23,7 +23,3 @@ test: testSuites.inc matmult.o $(OBJS)
 
 clean:
 	find . -name "*genmod*" -type f -delete
-	rm main
-
-main:
-	$(F90) matmult.F90 main.f90 -o $@ $(FFLAGS) 

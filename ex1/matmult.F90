@@ -22,7 +22,7 @@ contains
         sec_shape = shape(second)	
 	
         if (first_shape(col) /= sec_shape(row)) then	
-            write(*,*) 'Cant multiply because of wrong sizes'	
+            !write(*,*) 'Cant multiply because of wrong sizes'
             multiply = 0	
             status = 1	
         end if	
